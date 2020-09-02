@@ -19,6 +19,7 @@
         "php": "^7.2.5",
         "laravel-zero/framework": "^7.0",
         "league/csv": "^9.6",
+        "padraic/phar-updater": "^1.0.6",
         "smalot/pdfparser": "^0.16.2"
     },
     "require-dev": {
