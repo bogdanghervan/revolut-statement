@@ -35,7 +35,7 @@ class ConvertCommand extends Command
         (?<settleDate>\d{2}\/\d{2}\/\d{4})\s+
         (?<currency>\w+)\s+
         (?<activityType>\w+)\s+
-        (?<symbolDescription>.*)\s+
+        (?<symbolDescription>(?<symbol>\w+)\s-\s(?<description>.*))\s+
         (?<quantity>\d*(?:\.\d+)?)\s+
         (?<price>\d*(?:\.\d+)?)\s+
         (?<amountInBrackets>\((?<amount>\d*(?:\.\d+)?)\))
@@ -52,6 +52,8 @@ class ConvertCommand extends Command
         'Currency',
         'Activity Type',
         'Symbol / Description',
+        'Symbol',
+        'Description',
         'Quantity',
         'Price',
         'Amount'
@@ -72,16 +74,15 @@ class ConvertCommand extends Command
             }
         }
 
-        foreach ($files as $file) {
-            $parser = new Parser();
-            $pdf = $parser->parseFile($file);
+        $parser = new Parser();
+        $csv = Writer::createFromFileObject(new \SplTempFileObject());
+        $csv->insertOne($this->header);
 
+        foreach ($files as $file) {
+            $pdf = $parser->parseFile($file);
             $text = $pdf->getText();
 
             preg_match_all($this->pattern, $text, $matches, PREG_SET_ORDER | PREG_UNMATCHED_AS_NULL);
-
-            $csv = Writer::createFromFileObject(new \SplTempFileObject());
-            $csv->insertOne($this->header);
 
             foreach ($matches as $match) {
                 $csv->insertOne([
@@ -90,13 +91,15 @@ class ConvertCommand extends Command
                     $match['currency'],
                     $match['activityType'],
                     $match['symbolDescription'],
+                    $match['symbol'],
+                    $match['description'],
                     $match['quantity'],
                     $match['price'],
                     $match['amount'],
                 ]);
             }
-
-            echo $csv->getContent();
         }
+
+        echo $csv->getContent();
     }
 }
