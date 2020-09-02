@@ -55,7 +55,7 @@ revolut-statement convert statement-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee.pdf sta
 
 In the example above, the two PDF statements would be stitched together in one single CSV file called `all-statements.csv`. Now you can use this file to run analyses on your successful trades or prepare your tax reports.
 
-**Install updates*
+**Install updates**
 
 You can download the latest version of this app:
 ```
