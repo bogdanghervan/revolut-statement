@@ -62,6 +62,12 @@ You can download the latest version of this app:
 revolut-statement self-update
 ```
 
+## Support
+
+Has this solved you a lot of headaches with having to manually compile all this information? Buy me a coffee by clicking the button below.
+
+[![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/B0B325116)
+
 ## Legal 
 
 Revolut Statement is an open-source software licensed under the [MIT license](https://github.com/bogdanghervan/revolut-statement/blob/stable/LICENSE).
