@@ -31,13 +31,13 @@ Run this one-liner from your shell:
 php -r "copy('https://github.com/bogdanghervan/revolut-statement/raw/master/builds/revolut-statement', '/usr/local/bin/revolut-statement');" && chmod u+x revolut-statement
 ```
 
-This will download the latest build from GitHub and place in a folder that's it likely to be in your PATH.
+This will download the latest build from GitHub to a folder that's likely to be in your system path.
 
 You're ready to use Revolut Statement!
 
 ## Usage
 
-### Single File
+**Convert a single file**
 
 To convert a Revolut stock trade PDF statement to CSV:
 ```
@@ -46,7 +46,7 @@ revolut-statement convert statement-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee.pdf > m
 
 In the example above `statement-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee.pdf` is a likely name of the PDF statement downloaded from the Revolut app. The command would read the file and convert it to a CSV file named `my-statement.csv`.
 
-### Multiple Files
+**Convert multiple files**
 
 You can convert more PDF statements by specifying a list of files separated by space in the command line:
 ```
@@ -55,9 +55,9 @@ revolut-statement convert statement-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee.pdf sta
 
 In the example above, the two PDF statements would be stitched together in one single CSV file called `all-statements.csv`. Now you can use this file to run analyses on your successful trades or prepare your tax reports.
 
-### Updates
+**Install updates*
 
-Download new updates:
+You can download the latest version of this app:
 ```
 revolut-statement self-update
 ```
@@ -66,6 +66,6 @@ revolut-statement self-update
 
 Revolut Statement is an open-source software licensed under the [MIT license](https://github.com/bogdanghervan/revolut-statement/blob/stable/LICENSE).
 
-The data is processed by Revolut Statement locally without ever leaving your computer. Generally speaking, PDFs can be glitchy or errors in the software can cause to output to be inaccurate. Use on your own risk!
+The data is processed by Revolut Statement locally without ever leaving your computer. Generally speaking, PDFs can be glitchy or errors in the software can cause the output to be inaccurate. Use it on your own risk!
 
 This program is not affiliated or endorsed in any way by Revolut which is a trademark of Revolut Ltd.  
