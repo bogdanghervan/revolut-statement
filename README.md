@@ -28,7 +28,7 @@ PHP: `^7.2.5`
 
 Run this one-liner from your shell:
 ```Bash
-php -r "copy('https://github.com/bogdanghervan/revolut-statement/raw/master/builds/revolut-statement', '/usr/local/bin/revolut-statement');" && chmod u+x revolut-statement
+php -r "copy('https://github.com/bogdanghervan/revolut-statement/raw/master/builds/revolut-statement', '/usr/local/bin/revolut-statement');" && chmod u+x /usr/local/bin/revolut-statement
 ```
 
 This will download the latest build from GitHub to a folder that's likely to be in your system path.
