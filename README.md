@@ -1,4 +1,6 @@
-# Revolut Statement <a href='https://ko-fi.com/B0B325116' target='_blank' style='float: right;'><img height='36' style='border:0px;height:36px;' src='https://cdn.ko-fi.com/cdn/kofi2.png?v=2' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
+<a alt='Buy Me a Coffee at ko-fi.com' href='https://ko-fi.com/B0B325116' target='_blank' align='right'><img align='right' height='36' style='border:0px;height:36px;' src='https://cdn.ko-fi.com/cdn/kofi2.png?v=2' border='0' /></a>
+
+# Revolut Statement
 
 A command-line tool to parse Revolut Trading statements in the PDF format to CSV, a tabular format that can be opened by your spreadsheets software.
 
