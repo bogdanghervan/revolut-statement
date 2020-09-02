@@ -1,18 +1,17 @@
 {
-    "name": "laravel-zero/laravel-zero",
-    "description": "The Laravel Zero Framework.",
-    "keywords": ["framework", "laravel", "laravel zero", "console", "cli"],
-    "homepage": "https://laravel-zero.com",
+    "name": "bogdanghervan/revolut-statement",
+    "description": "Convert Revolut Trading statements from PDF to CSV.",
+    "keywords": ["revolut", "trading", "statement", "converter", "cli"],
     "type": "project",
     "license": "MIT",
     "support": {
-        "issues": "https://github.com/laravel-zero/laravel-zero/issues",
-        "source": "https://github.com/laravel-zero/laravel-zero"
+        "issues": "https://github.com/bogdanghervan/revolut-statement/issues",
+        "source": "https://github.com/bogdanghervan/revolut-statement"
     },
     "authors": [
         {
-            "name": "Nuno Maduro",
-            "email": "enunomaduro@gmail.com"
+            "name": "Bogdan Ghervan",
+            "email": "bogdan.ghervan@gmail.com"
         }
     ],
     "require": {
