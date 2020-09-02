@@ -48,7 +48,7 @@ In the example above `statement-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee.pdf` is a l
 
 **Convert multiple files**
 
-You can convert more PDF statements by specifying a list of files separated by space in the command line:
+You can convert more PDF statements at the same time by specifying a list of files separated by space in the command line:
 ```
 revolut-statement convert statement-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee.pdf statement-vvvvvvvv-wwww-xxxx-yyyy-zzzzzzzzzzzz.pdf > all-statements.csv
 ```
