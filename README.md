@@ -1,8 +1,6 @@
-<a alt='Buy Me a Coffee at ko-fi.com' href='https://ko-fi.com/B0B325116' target='_blank' align='right'><img align='right' height='36' style='border:0px;height:36px;' src='https://cdn.ko-fi.com/cdn/kofi2.png?v=2' border='0' /></a>
-
 # Revolut Statement
 
-A command-line tool to parse Revolut Trading statements in the PDF format to CSV, a tabular format that can be opened by your spreadsheets software.
+A command-line tool to convert Revolut Trading statements in the PDF format to CSV or Excel.
 
 Hopefully, Revolut will soon develop this as a feature of their own at which time this package will become obsolete.
 
@@ -20,11 +18,20 @@ These are the columns that are included:
 * Price
 * Amount
 
+## Supported Formats
+
+| Format | Details |
+| ------ | ------- |
+| `csv`  | Comma-separated values file *(default)* |
+| `xlsx` | Excel 2007 onwards |
+| `ods`  | OpenOffice spreadsheet |
+| `xls`  | Legacy Excel format |
+
 ## Installation
 
 ### Requirements
 
-PHP: `^7.2.5`
+PHP ≥ 7.2.5
 
 ### Installation
 
@@ -39,7 +46,7 @@ You're ready to use Revolut Statement!
 
 ## Usage
 
-**Convert a single file**
+**Convert a single statement to CSV**
 
 To convert a Revolut stock trade PDF statement to CSV:
 ```
@@ -48,7 +55,7 @@ revolut-statement convert statement-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee.pdf > m
 
 In the example above `statement-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee.pdf` is a likely name of the PDF statement downloaded from the Revolut app. The command would read the file and convert it to a CSV file named `my-statement.csv`.
 
-**Convert multiple files**
+**Convert multiple statements to CSV**
 
 You can convert more PDF statements at the same time by specifying a list of files separated by space in the command line:
 ```
@@ -56,6 +63,28 @@ revolut-statement convert statement-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee.pdf sta
 ```
 
 In the example above, the two PDF statements would be stitched together in one single CSV file called `all-statements.csv`. Now you can use this file to run analyses on your successful trades or prepare your tax reports.
+
+**Convert a statement to Excel**
+
+To convert a Revolut stock trade PDF statement to Excel:
+```
+revolut-statement convert statement-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee.pdf -f xlsx -o my-statement.xlsx
+```
+
+**Convert multiple files matching a pattern**
+
+A common use case is wanting to stitch together several PDF stock trade statements downloaded from Revolut in the same directory that have a file name resembling `statement-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee.pdf`. Here's how to do that simply:
+```
+revolut-statement convert statement-*.pdf -f xlsx -o all-statements.xlsx -v
+```
+
+Pro tip: Pass in the `-v` option to see additional details while files are parsed.
+
+**See all available options**
+
+```
+revolut-statement convert --help
+```
 
 **Install updates**
 
@@ -66,9 +95,11 @@ revolut-statement self-update
 
 ## Support
 
-Has this solved you a lot of headaches with having to manually compile all this information? Buy me a coffee by clicking the button below.
+Has this just saved you the trouble of having to manually compile all this information? Consider leaving me a note and buying me a coffee by clicking the button below.
 
 [![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/B0B325116)
+
+Have you found a problem? [Submit an issue](https://github.com/bogdanghervan/revolut-statement/issues)
 
 ## Legal 
 

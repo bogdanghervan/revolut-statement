@@ -2,11 +2,12 @@
 
 namespace App\Commands;
 
-use Illuminate\Console\Scheduling\Schedule;
+use Exception;
+use App\Parser;
+use App\Exporter;
+use InvalidArgumentException;
+use Smalot\PdfParser\Parser as PdfReader;
 use LaravelZero\Framework\Commands\Command;
-use League\Csv\Writer;
-use Smalot\PdfParser\Parser;
-use SplFileObject;
 
 class ConvertCommand extends Command
 {
@@ -16,30 +17,18 @@ class ConvertCommand extends Command
      * @var string
      */
     protected $signature = 'convert
-                            {file* : The input file}';
+                            {file* : The input file}
+                            {--f|format=csv : The output file format (one of "csv", "xls", "xlsx" or "ods")}
+                            {--o|output= : The output file name}';
 
     /**
      * The description of the command.
      *
      * @var string
      */
-    protected $description = 'Convert Revolut Trading statement to CSV format';
-
-    /**
-     * Regex pattern for a line statement.
-     *
-     * @var string
-     */
-    protected $pattern = "/
-        (?<tradeDate>\d{2}\/\d{2}\/\d{4})\s+
-        (?<settleDate>\d{2}\/\d{2}\/\d{4})\s+
-        (?<currency>\w+)\s+
-        (?<activityType>\w+)\s+
-        (?<symbolDescription>(?<symbol>\w+)\s-\s(?<description>.*))\s+
-        (?<quantity>\d*(?:\.\d+)?)\s+
-        (?<price>\d*(?:\.\d+)?)\s+
-        (?<amountInBrackets>\((?<amount>\d*(?:\.\d+)?)\))
-    /mx";
+    protected $description = 'Convert Revolut Trading statement to a tabular format.
+    
+  Converted data will be displayed on the screen if an output file is not specified.';
 
     /**
      * Header of output data.
@@ -67,39 +56,71 @@ class ConvertCommand extends Command
     public function handle()
     {
         $files = $this->argument('file');
-
         foreach ($files as $file) {
             if (!is_readable($file)) {
                 return $this->error(sprintf('Input file %s does not exist.', $file));
             }
         }
 
-        $parser = new Parser();
-        $csv = Writer::createFromFileObject(new \SplTempFileObject());
-        $csv->insertOne($this->header);
+        try {
+            $reader = new PdfReader();
+            $exporter = new Exporter($this->destination(), $this->format());
 
-        foreach ($files as $file) {
-            $pdf = $parser->parseFile($file);
-            $text = $pdf->getText();
+            $exporter->insertOne($this->header);
+            foreach ($files as $file) {
+                $pdf = $reader->parseFile($file);
 
-            preg_match_all($this->pattern, $text, $matches, PREG_SET_ORDER | PREG_UNMATCHED_AS_NULL);
+                $text = $pdf->getText();
+                $this->line(sprintf("Extracted text\n%s", $text), null, 'vv');
+                
+                $records = Parser::parse($pdf->getText());
+                $this->info(sprintf('%d matches found in %s', count($records), $file), 'v');
 
-            foreach ($matches as $match) {
-                $csv->insertOne([
-                    $match['tradeDate'],
-                    $match['settleDate'],
-                    $match['currency'],
-                    $match['activityType'],
-                    $match['symbolDescription'],
-                    $match['symbol'],
-                    $match['description'],
-                    $match['quantity'],
-                    $match['price'],
-                    $match['amount'],
-                ]);
+                $exporter->insertMany($records);
             }
+
+            // Send file to stdout if destination not given
+            if (empty($this->option('output'))) {
+                $exporter->print();
+            }
+        } catch (Exception $e) {
+            return $this->error(sprintf('Conversion failed: %s', $e->getMessage()));
+        }
+    }
+
+    /**
+     * Return sanitized filename. It enforces that the extension
+     * matches the format wanted by the user. This way, for instance,
+     * we avoid generating a XLSX file with a ".xls" that Excel
+     * may refuse to open.
+     *
+     * @return string|null
+     */
+    protected function destination(): ?string
+    {
+        $destination = $this->option('output');
+        if (empty($destination)) {
+            return null;
         }
 
-        echo $csv->getContent();
+        return preg_replace('/(?:csv|xlsx|xls|ods)$/', $this->format(), $destination);
+    }
+
+    /**
+     * @return string
+     */
+    protected function format(): string
+    {
+        $format = strtolower($this->option('format'));
+
+        $supportedFormats = Exporter::getSupportedFormats();
+        if (!in_array($format, $supportedFormats)) {
+            throw new InvalidArgumentException(sprintf(
+                'Format must be one of: %s',
+                implode(', ', $supportedFormats)
+            ));
+        }
+
+        return $format;
     }
 }
