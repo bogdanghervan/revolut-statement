@@ -19,7 +19,8 @@ class ConvertCommand extends Command
     protected $signature = 'convert
                             {file* : The input file}
                             {--f|format=csv : The output file format (one of "csv", "xls", "xlsx" or "ods")}
-                            {--o|output= : The output file name}';
+                            {--o|output= : The output file name}
+                            {--autosize : Resize columns to fit content}';
 
     /**
      * The description of the command.
@@ -65,6 +66,7 @@ class ConvertCommand extends Command
         try {
             $reader = new PdfReader();
             $exporter = new Exporter($this->destination(), $this->format());
+            $exporter->setAutoSize($this->option('autosize'));
 
             $exporter->insertOne($this->header);
             foreach ($files as $file) {

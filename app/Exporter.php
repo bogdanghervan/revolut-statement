@@ -38,6 +38,11 @@ class Exporter
      * @var string[]
      */
     protected static $supportedFormats = ['csv', 'xls', 'xlsx', 'ods'];
+    
+    /**
+     * @var boolean
+     */
+    protected $autoSize = false;
 
     /**
      * Exporter constructor.
@@ -67,6 +72,17 @@ class Exporter
 
         $this->format = $format;
 
+        return $this;
+    }
+    
+    /**
+     * @param bool $autoSize
+     * @return $this
+     */
+    public function setAutoSize(bool $autoSize): self
+    {
+        $this->autoSize = $autoSize;
+        
         return $this;
     }
 
@@ -137,11 +153,24 @@ class Exporter
      */
     protected function flushBuffer(): Exporter
     {
-        $this->spreadsheet->getActiveSheet()->refreshColumnDimensions();
+        if ($this->autoSize) {
+            $this->refreshColumnDimensions();
+        }
 
         $writer = IOFactory::createWriter($this->spreadsheet, ucfirst($this->format));
         $writer->save($this->filename);
 
+        return $this;
+    }
+    
+    protected function refreshColumnDimensions(): Exporter
+    {
+        $sheet = $this->spreadsheet->getActiveSheet();
+        
+        foreach ($sheet->getColumnIterator() as $column) {
+            $sheet->getColumnDimension($column->getColumnIndex())->setAutoSize($this->autoSize);
+        }
+        
         return $this;
     }
 
