@@ -93,8 +93,8 @@ class ConvertCommand extends Command
     /**
      * Return sanitized filename. It enforces that the extension
      * matches the format wanted by the user. This way, for instance,
-     * we avoid generating a XLSX file with a ".xls" that Excel
-     * may refuse to open.
+     * we avoid generating a XLSX file with a ".xls" extension that
+     * Excel may refuse to open.
      *
      * @return string|null
      */
