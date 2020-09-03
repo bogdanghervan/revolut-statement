@@ -119,8 +119,7 @@ class Exporter
     {
         $this->flushBuffer();
         readfile($this->filename);
-
-
+        
         return $this;
     }
 
