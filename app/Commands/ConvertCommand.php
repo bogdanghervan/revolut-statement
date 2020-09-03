@@ -70,12 +70,10 @@ class ConvertCommand extends Command
 
             $exporter->insertOne($this->header);
             foreach ($files as $file) {
-                $pdf = $reader->parseFile($file);
-
-                $text = $pdf->getText();
+                $text = $reader->parseFile($file)->getText();
                 $this->line(sprintf("Extracted text\n%s", $text), null, 'vv');
                 
-                $records = Parser::parse($pdf->getText());
+                $records = Parser::parse($text);
                 $this->info(sprintf('%d matches found in %s', count($records), $file), 'v');
 
                 $exporter->insertMany($records);
