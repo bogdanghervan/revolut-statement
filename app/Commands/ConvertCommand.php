@@ -17,7 +17,7 @@ class ConvertCommand extends Command
      * @var string
      */
     protected $signature = 'convert
-                            {file* : The input file}
+                            {file* : The input file(s)}
                             {--f|format=csv : The output file format (one of "csv", "xls", "xlsx" or "ods")}
                             {--o|output= : The output file name}
                             {--autosize : Resize columns to fit content}';

@@ -163,6 +163,9 @@ class Exporter
         return $this;
     }
     
+    /**
+     * @return Exporter
+     */
     protected function refreshColumnDimensions(): Exporter
     {
         $sheet = $this->spreadsheet->getActiveSheet();
