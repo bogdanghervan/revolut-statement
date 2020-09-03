@@ -65,7 +65,6 @@ class Exporter
     public function setFormat(string $format): self
     {
         $format = strtolower($format);
-
         if (!in_array($format, self::$supportedFormats)) {
             throw new InvalidArgumentException('Invalid format');
         }
