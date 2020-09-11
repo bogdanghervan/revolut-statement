@@ -103,7 +103,7 @@ Have you found a problem? [Submit an issue](https://github.com/bogdanghervan/rev
 
 ## Legal 
 
-Revolut Statement is an open-source software licensed under the [MIT license](https://github.com/bogdanghervan/revolut-statement/blob/stable/LICENSE).
+Revolut Statement is an open-source software licensed under the [MIT license](https://github.com/bogdanghervan/revolut-statement/blob/master/LICENSE).
 
 The data is processed by Revolut Statement locally without ever leaving your computer. Generally speaking, PDFs can be glitchy or errors in the software can cause the output to be inaccurate. Use it on your own risk!
 
