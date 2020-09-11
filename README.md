@@ -6,7 +6,7 @@ Hopefully, Revolut will soon develop this as a feature of their own at which tim
 
 ## Data
 
-These are the columns that are included:
+The Activity section of your statement is exported. These are the columns that are included:
 * Trade Date
 * Settle Date
 * Currency
