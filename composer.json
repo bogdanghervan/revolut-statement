@@ -1,6 +1,6 @@
 {
     "name": "bogdanghervan/revolut-statement",
-    "description": "Convert Revolut Trading statements from PDF to CSV.",
+    "description": "Convert Revolut Trading statements from PDF to CSV or Excel.",
     "keywords": ["revolut", "trading", "statement", "converter", "cli"],
     "type": "project",
     "license": "MIT",
