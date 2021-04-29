@@ -31,7 +31,7 @@ The Activity section of your statement is exported. These are the columns that a
 
 ### Requirements
 
-PHP ≥ 7.2.5
+PHP ≥ 7.3
 
 ### Installation
 
