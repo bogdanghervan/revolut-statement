@@ -4,6 +4,8 @@ A command-line tool to convert Revolut Trading statements in the PDF format to C
 
 Hopefully, Revolut will soon develop this as a feature of their own at which time this package will become obsolete.
 
+**Update June 2021**: Excel-based statements are now available in the Revolut app directly.
+
 ## Data
 
 The Activity section of your statement is exported. These are the columns that are included:
